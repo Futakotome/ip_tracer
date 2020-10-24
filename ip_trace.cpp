@@ -8,7 +8,7 @@ using namespace std;
 typedef struct 
 {
     unsigned char hdr_len:4; //4位头部长度
-    unsigned cahr version:4; //4位版本号
+    unsigned char version:4; //4位版本号
     unsigned char tos;//8位服务类型
     unsigned short total_len; //16位总长度
     unsigned short identifier; //16标示符
