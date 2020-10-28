@@ -1,9 +1,0 @@
-{
-  "program": {
-    "portable": {
-      "pnacl-translate": {
-        "url": "pnacl/Release/ip_trace.pexe"
-      }
-    }
-  }
-}

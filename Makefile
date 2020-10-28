@@ -9,7 +9,7 @@ VALID_TOOLCHAINS := pnacl glibc clang-newlib
 
 NACL_SDK_ROOT ?= D:\nacl\nacl_sdk\nacl_sdk\pepper_49
 
-TARGET = ip_trace
+TARGET = ip_tracer
 
 
 include $(NACL_SDK_ROOT)/tools/common.mk
