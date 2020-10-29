@@ -9,16 +9,19 @@ VALID_TOOLCHAINS := pnacl glibc clang-newlib
 
 NACL_SDK_ROOT ?= D:\nacl\nacl_sdk\nacl_sdk\pepper_49
 
-TARGET = ip_tracer
+TARGET = socket
 
 
 include $(NACL_SDK_ROOT)/tools/common.mk
 
 
+CHROME_ARGS += --allow-nacl-socket-api=localhost
+
 LIBS = jsoncpp ppapi_cpp ppapi pthread
 
 CFLAGS = -Wall
-SOURCES = hello_tutorial.cc
+SOURCES = socket.cc	\
+	echo_server.cc
 
 .PHONY: httpd
 httpd:
