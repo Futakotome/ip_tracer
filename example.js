@@ -1,8 +1,3 @@
-// Copyright (c) 2013 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// Called by the common.js module.
 function attachListeners() {
   document.getElementById('connectForm').addEventListener('submit', doConnect);
   document.getElementById('sendForm').addEventListener('submit', doSend);
@@ -24,7 +19,6 @@ var msgClose = 'c;'
 var msgListen = 'l;'
 
 function doConnect(event) {
-  // Send a request message. See also socket.cc for the request format.
   event.preventDefault();
   var hostname = document.getElementById('hostname').value;
   var type = document.getElementById('connect_type').value;
@@ -37,7 +31,6 @@ function doConnect(event) {
 }
 
 function doSend(event) {
-  // Send a request message. See also socket.cc for the request format.
   event.preventDefault();
   var message = document.getElementById('message').value;
   while (message.indexOf('\\n') > -1)
@@ -46,7 +39,6 @@ function doSend(event) {
 }
 
 function doListen(event) {
-  // Listen a the given port.
   event.preventDefault();
   var port = document.getElementById('port').value;
   var type = document.getElementById('listen_type').value;
@@ -54,7 +46,6 @@ function doListen(event) {
 }
 
 function doClose() {
-  // Send a request message. See also socket.cc for the request format.
   common.naclModule.postMessage(msgClose);
 }
 
