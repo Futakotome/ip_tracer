@@ -74,34 +74,26 @@ void ExampleInstance::HandleMessage(const pp::Var& var_message) {
   std::string message = var_message.AsString();
   // This message must contain a command character followed by ';' and
   // arguments like "X;arguments".
+  PostMessage(pp::Var(std::string(message)));
   if (message.length() < 2 || message[1] != ';')
     return;
   switch (message[0]) {
     case MSG_CREATE_UDP:
-      // The command 'b' requests to create a UDP connection the
-      // specified HOST.
-      // HOST is passed as an argument like "t;HOST".
       Connect(message.substr(2), false);
       break;
     case MSG_CREATE_TCP:
-      // The command 'o' requests to connect to the specified HOST.
-      // HOST is passed as an argument like "u;HOST".
       Connect(message.substr(2), true);
       break;
     case MSG_CLOSE:
-      // The command 'c' requests to close without any argument like "c;"
       Close();
       break;
     case MSG_LISTEN:
       {
-        // The command 'l' starts a listening socket (server).
         int port = atoi(message.substr(2).c_str());
         echo_server_ = new EchoServer(this, port);
         break;
       }
     case MSG_SEND:
-      // The command 't' requests to send a message as a text frame. The
-      // message passed as an argument like "t;message".
       Send(message.substr(2));
       break;
     default:
