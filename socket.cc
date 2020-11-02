@@ -15,6 +15,7 @@
 #include "ppapi/cpp/udp_socket.h"
 #include "ppapi/cpp/var.h"
 #include "ppapi/utility/completion_callback_factory.h"
+#include "ppapi/c/ppb_udp_socket.h"
 
 #ifdef WIN32
 #undef PostMessage
@@ -50,6 +51,7 @@ class ExampleInstance : public pp::Instance {
   void OnReceiveCompletion(int32_t result);
   void OnReceiveFromCompletion(int32_t result, pp::NetAddress source);
   void OnSendCompletion(int32_t result);
+  void OnSetOptionCompletion(int32_t result);
 
   pp::CompletionCallbackFactory<ExampleInstance> callback_factory_;
   pp::TCPSocket tcp_socket_;
@@ -229,9 +231,13 @@ void ExampleInstance::Send(const std::string& message) {
   const char* data = message.c_str();
   pp::CompletionCallback callback =
       callback_factory_.NewCallback(&ExampleInstance::OnSendCompletion);
+
+  pp::CompletionCallback callback_1=callback_factory_.NewCallback(&ExampleInstance::OnSetOptionCompletion);
   int32_t result;
-  if (IsUDP())
+  if (IsUDP()){
+     udp_socket_.SetOption(PP_UDPSOCKET_OPTION_MULTICAST_TTL,pp::Var(3),callback_1);
      result = udp_socket_.SendTo(data, size, remote_host_, callback);
+  }
   else
      result = tcp_socket_.Write(data, size, callback);
   std::ostringstream status;
@@ -262,6 +268,12 @@ void ExampleInstance::Receive() {
         callback_factory_.NewCallback(&ExampleInstance::OnReceiveCompletion);
     tcp_socket_.Read(receive_buffer_, kBufferSize, callback);
   }
+}
+
+void ExampleInstance::OnSetOptionCompletion(int32_t result){
+  std::ostringstream status;
+  status<<"Set option status:"<<result;
+  PostMessage(status.str());
 }
 
 void ExampleInstance::OnConnectCompletion(int32_t result) {

@@ -1,4 +1,4 @@
-VALID_TOOLCHAINS := pnacl glibc clang-newlib
+VALID_TOOLCHAINS := pnacl glibc clang-newlib win
 
 NACL_SDK_ROOT ?= D:\nacl\nacl_sdk\nacl_sdk\pepper_49
 

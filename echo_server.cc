@@ -44,8 +44,6 @@ void EchoServer::Start(uint16_t port) {
   status << "Starting server on port: " << port;
   instance_->PostMessage(status.str());
 
-  // Attempt to listen on all interfaces (0.0.0.0)
-  // on the given port number.
   PP_NetAddress_IPv4 ipv4_addr = { Htons(port), { 0 } };
   pp::NetAddress addr(instance_, ipv4_addr);
   pp::CompletionCallback callback =
